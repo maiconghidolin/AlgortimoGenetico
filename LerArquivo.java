@@ -1,9 +1,7 @@
-import java.io.Console;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 class LerArquivo {
     public int quantidadeProfessores;
     public int quantidadeSemestres;
