@@ -42,7 +42,7 @@ class Populacao{
                 } else{
                     j = k = 120;
                 }
-                while(j < (j + 30)){
+                while(j < (k + 30)){
                     // se já tem um valor no gene não sobrescreve
                     if(genes[j] == null){
                         boolean semestreValido = true, professorValido = true, paresHorariosValidos = true;
@@ -115,5 +115,4 @@ class Populacao{
             populacaoInicial.add(genes);
         }
     }
-
 }
