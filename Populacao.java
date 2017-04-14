@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+
 class Populacao{
     private static final int numeroIndividuos = 750;
     private static final int numeroSalas = 5;
@@ -23,7 +25,12 @@ class Populacao{
         int i, j, k;
         for(i = 0; i < numeroIndividuos; i++){
             Disciplina[] genes = new Disciplina[numeroGenes];
-            for(Disciplina disciplina: arquivo.disciplinas){
+            List<Disciplina> disciplinasAux = arquivo.disciplinas;
+            Random rand = new Random();
+            while(disciplinasAux.size() > 0){
+                Disciplina disciplina;
+                int index = rand.nextInt(disciplinasAux.size());
+                disciplina = disciplinasAux.get(index);
                 if(disciplina.semestre.sala == 101) {
                     j = k = 0;
                 } else if(disciplina.semestre.sala == 102) {
@@ -94,7 +101,6 @@ class Populacao{
                                 }
                             }
                         }
-
                         if(semestreValido && professorValido && paresHorariosValidos){
                             genes[j] = disciplina;
                             break;
@@ -104,6 +110,7 @@ class Populacao{
                         j++;
                     }
                 }
+                disciplinasAux.remove(index);
             }
             populacaoInicial.add(genes);
         }
