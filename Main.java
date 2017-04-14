@@ -8,7 +8,7 @@ class Main{
 
             System.out.println("Populacao:");            
             for(Disciplina[] popini: populacao.populacaoInicial){
-                System.out.println("Individuo: " + populacao.populacaoInicial.indexOf(popini));  
+                System.out.println("\nIndividuo: " + populacao.populacaoInicial.indexOf(popini));  
                 for(Disciplina disciplina: popini){
                     if(disciplina != null){
                         System.out.print(disciplina.codigo + ", ");

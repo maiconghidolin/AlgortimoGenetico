@@ -25,7 +25,7 @@ class Populacao{
         int i, j, k;
         for(i = 0; i < numeroIndividuos; i++){
             Disciplina[] genes = new Disciplina[numeroGenes];
-            List<Disciplina> disciplinasAux = arquivo.disciplinas;
+            List<Disciplina> disciplinasAux = new ArrayList<>(arquivo.disciplinas);
             Random rand = new Random();
             while(disciplinasAux.size() > 0){
                 Disciplina disciplina;
