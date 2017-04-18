@@ -9,6 +9,7 @@ class LerArquivo {
     public List<Professor> professores;
     public List<Semestre> semestres;
     public List<Disciplina> disciplinas;
+    public List<PeriodosDisciplina> periodosDisciplina;
 
     private static final String fileName = "curso.dat";
 
@@ -17,6 +18,7 @@ class LerArquivo {
             professores = new ArrayList<Professor>();
             semestres = new ArrayList<Semestre>();
             disciplinas = new ArrayList<Disciplina>();
+            periodosDisciplina = new ArrayList<PeriodosDisciplina>();
 
             int i = 0, j = 0;
             Scanner scanner = new Scanner(new File(fileName));
@@ -60,6 +62,16 @@ class LerArquivo {
                     disciplina.semestre = semestre;
                     disciplina.professor = professor;
                     disciplinas.add(disciplina);
+                }
+
+                PeriodosDisciplina periodos = periodosDisciplina.stream().filter(x -> x.codigoDisciplina.equals(codigoDisciplina)).findFirst().orElse(null);
+                if(periodos != null){
+                    periodos.quantidadePeriodos += numeroPeriodos;
+                }else{
+                    periodos = new PeriodosDisciplina();
+                    periodos.codigoDisciplina = codigoDisciplina;
+                    periodos.quantidadePeriodos = numeroPeriodos;
+                    periodosDisciplina.add(periodos);
                 }
             }   
 
