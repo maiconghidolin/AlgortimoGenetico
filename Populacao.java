@@ -66,6 +66,7 @@ class Populacao{
                         List<Integer> pares3 = Arrays.asList(6, 25, 36, 55, 66, 85, 96, 115, 126, 145);
                         List<Integer> pares4 = Arrays.asList(8, 27, 38, 57, 68, 87, 98, 117, 128, 147);
 
+						
                         if(pares.indexOf(j) > -1){
                             for(int v: pares){
                                 if(genes[v] != null){
@@ -114,13 +115,14 @@ class Populacao{
                             }
                             horarioOutrasSalas += 30;
                         }                      
-
+						
                         if(semestreValido && paresHorariosValidos && !aulaMesmoHorarioOutraSala){
                             genes[j] = disciplina;
                             break;
                         }
                         j++;
-                    }else{
+                    }
+					else {
                         j++;
                     }
                 }
