@@ -9,8 +9,7 @@ class LerArquivo {
     public List<Professor> professores;
     public List<Semestre> semestres;
     public List<Disciplina> disciplinas;
-    public List<PeriodosDisciplina> periodosDisciplina;
-
+    
     private static final String fileName = "curso.dat";
 
     public LerArquivo() throws Exception{
@@ -18,11 +17,11 @@ class LerArquivo {
             professores = new ArrayList<Professor>();
             semestres = new ArrayList<Semestre>();
             disciplinas = new ArrayList<Disciplina>();
-            periodosDisciplina = new ArrayList<PeriodosDisciplina>();
 
             int i = 0, j = 0;
             Scanner scanner = new Scanner(new File(fileName));
 
+            // lê os professores
             quantidadeProfessores = scanner.nextInt();
             for(i = 0; i < quantidadeProfessores; i++){
                 Professor professor = new Professor();
@@ -35,6 +34,7 @@ class LerArquivo {
                 professores.add(professor);
             }
 
+            // lê os semestres 
             quantidadeSemestres = scanner.nextInt();
             for(i = 0; i < quantidadeSemestres; i++){
                 Semestre semestre = new Semestre();
@@ -48,6 +48,7 @@ class LerArquivo {
                 semestres.add(semestre);
             }     
 
+            // lê as disciplinas
             quantidadeDisciplinas = scanner.nextInt();
             for(i = 0; i < quantidadeDisciplinas; i++){
                 String codigoDisciplina = scanner.next();
@@ -57,21 +58,13 @@ class LerArquivo {
                 for(j = 0; j < numeroPeriodos; j++){
                     Disciplina disciplina = new Disciplina();
                     disciplina.codigo = codigoDisciplina;
+                    // busca o semestre pelo código
                     Semestre semestre = semestres.stream().filter(x -> x.codigo.equals(codigoSemestre)).findFirst().get();
+                    // busca o professor pelo nome
                     Professor professor = professores.stream().filter(x -> x.nome.equals(nomeProfessor)).findFirst().get();
                     disciplina.semestre = semestre;
                     disciplina.professor = professor;
                     disciplinas.add(disciplina);
-                }
-
-                PeriodosDisciplina periodos = periodosDisciplina.stream().filter(x -> x.codigoDisciplina.equals(codigoDisciplina)).findFirst().orElse(null);
-                if(periodos != null){
-                    periodos.quantidadePeriodos += numeroPeriodos;
-                }else{
-                    periodos = new PeriodosDisciplina();
-                    periodos.codigoDisciplina = codigoDisciplina;
-                    periodos.quantidadePeriodos = numeroPeriodos;
-                    periodosDisciplina.add(periodos);
                 }
             }   
 

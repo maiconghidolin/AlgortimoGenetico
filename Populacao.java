@@ -23,6 +23,7 @@ class Populacao{
     public Populacao(LerArquivo arquivo){
         populacaoInicial = new ArrayList<Disciplina[]>();
         int i, j, k;
+        // passa cada indivíduo criando os genes
         for(i = 0; i < numeroIndividuos; i++){
             Disciplina[] genes = new Disciplina[numeroGenes];
             List<Disciplina> disciplinasAux = new ArrayList<>(arquivo.disciplinas);
@@ -30,7 +31,9 @@ class Populacao{
             while(disciplinasAux.size() > 0){
                 Disciplina disciplina;
                 int index = rand.nextInt(disciplinasAux.size());
+                // pega uma disciplina aleatoria para colocar em um gene
                 disciplina = disciplinasAux.get(index);
+                // pega o horário correspondente a cada sala
                 if(disciplina.semestre.sala == 101) {
                     j = k = 0;
                 } else if(disciplina.semestre.sala == 102) {
@@ -50,11 +53,6 @@ class Populacao{
                         if(!disciplina.semestre.horariosDisponiveis.contains(j - k)){
                             semestreValido = false;
                         }
-                        // verifica se o profesor quer dar aula nesse horario
-                        // essa vai na fitness
-                        // if(disciplina.professor.horariosIndisponiveis.contains(j - k)){
-                        //     professorValido = false;
-                        // }
                         // verifica os pares de horarios 
                         // (21,02), (23,04), (25,06), (27,08)
                         // (51,32), (53,34), (55,36), (57,38)
@@ -65,7 +63,6 @@ class Populacao{
                         List<Integer> pares2 = Arrays.asList(4, 23, 34, 53, 64, 83, 94, 113, 124, 143);
                         List<Integer> pares3 = Arrays.asList(6, 25, 36, 55, 66, 85, 96, 115, 126, 145);
                         List<Integer> pares4 = Arrays.asList(8, 27, 38, 57, 68, 87, 98, 117, 128, 147);
-
 						
                         if(pares.indexOf(j) > -1){
                             for(int v: pares){
@@ -116,6 +113,7 @@ class Populacao{
                             horarioOutrasSalas += 30;
                         }                      
 						
+                        // verifica se pode colocar nesse gene 
                         if(semestreValido && paresHorariosValidos && !aulaMesmoHorarioOutraSala){
                             genes[j] = disciplina;
                             break;
@@ -126,6 +124,7 @@ class Populacao{
                         j++;
                     }
                 }
+                // remove da lista auxiliar para não selecionar o mesmo gene duas vezes
                 disciplinasAux.remove(index);
             }
             populacaoInicial.add(genes);

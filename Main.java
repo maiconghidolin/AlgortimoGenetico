@@ -3,6 +3,16 @@ class Main{
 
     public static void main(String args[]){
         try{
+
+            // Procedimento:
+            //  Cria População;
+            //  Para cada iteração:
+            //      Seleciona dois genes pais;
+            //      CrossOver;
+            //      Mutação;
+            //      Fitness;
+            //      Seleção dos melhores/Corte;
+
             LerArquivo lerArquivo = new LerArquivo();
             Populacao populacao = new Populacao(lerArquivo);
 			
@@ -15,9 +25,6 @@ class Main{
 				System.out.println("Indiv. " + i + " - fitness: " + fitness[i]);
 			}
 			
-            for(PeriodosDisciplina periodo: lerArquivo.periodosDisciplina){
-                System.out.println(periodo.codigoDisciplina + " " + periodo.quantidadePeriodos);
-            }
         } catch(Exception ex){
             System.out.println(ex.getCause().getMessage());
         }
