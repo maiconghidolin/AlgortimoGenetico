@@ -1,6 +1,8 @@
 import java.util.List;
 class Main{
 
+    private static final int quantidadeIteracoes = 20;
+
     public static void main(String args[]){
         try{
 
@@ -14,8 +16,17 @@ class Main{
             //      Seleção dos melhores/Corte;
 
             LerArquivo lerArquivo = new LerArquivo();
+            // cria populacao
             Populacao populacao = new Populacao(lerArquivo);
-			
+            // para cada iteração
+            //for(int i = 0; i < quantidadeIteracoes; i++){
+            //    // crossover
+            //    //Mutação
+            //    Mutacao mutacao = new Mutacao(populacao.populacaoInicial);
+            //    //Fitness
+            //    //Corte
+            //}
+
 			Evolution evolution = new Evolution();
 			double fitness[] = new double[populacao.populacaoInicial.size()];
 			
@@ -25,7 +36,7 @@ class Main{
 				System.out.println("Indiv. " + i + " - fitness: " + fitness[i]);
 			}
 			
-            Mutacao mutacao = new Mutacao(populacao.populacaoInicial);
+            
 
         } catch(Exception ex){
             System.out.println(ex.getCause().getMessage());
