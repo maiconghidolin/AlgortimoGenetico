@@ -11,6 +11,7 @@ CLASSES = \
 	Semestre.java \
 	Professor.java \
 	Evolution.java \
+	Mutacao.java \
 	Main.java
 
 default: classes
