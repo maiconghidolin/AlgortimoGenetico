@@ -25,6 +25,8 @@ class Main{
 				System.out.println("Indiv. " + i + " - fitness: " + fitness[i]);
 			}
 			
+            Mutacao mutacao = new Mutacao(populacao.populacaoInicial);
+
         } catch(Exception ex){
             System.out.println(ex.getCause().getMessage());
         }
