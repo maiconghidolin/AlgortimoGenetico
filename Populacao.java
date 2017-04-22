@@ -130,4 +130,62 @@ class Populacao{
             populacaoInicial.add(genes);
         }
     }
+	
+	public void imprimeIndividuos() {
+        Disciplina individuo[];
+        for (int i = 0; i < this.populacaoInicial.size(); i++) {
+            individuo = this.populacaoInicial.get(i);
+            for (int j = 0; j < individuo.length; j++) {
+                System.out.print(j + " ");
+                System.out.print(individuo[j] == null ? "SEM AULA" : (individuo[j].codigo + " " + individuo[j].professor.nome));
+                if (j == 29 || j == 59 || j == 89 || j == 119 || j == 149)
+                    System.out.print("\n");
+                else 
+                    System.out.print(" ");
+            }
+            System.out.println("\n");
+        }
+    }
+ 
+    public static int indexOf(Disciplina disciplinas[], Disciplina disciplina) {
+        if (disciplinas == null)
+            return -1;
+        for (int i = 0; i < disciplinas.length; i++)
+            if (disciplina.codigo == disciplinas[i].codigo && disciplina.professor.nome == disciplinas[i].professor.nome)
+                return i;
+        return -1;
+    }
+    
+    public static boolean compararIgualdadeDisciplinas(Disciplina discip1, Disciplina discip2) {
+        if ((discip1 == null || discip2 == null) && (discip1 != null || discip2 != null))
+            return true;
+        return discip1.codigo == discip2.codigo && discip1.professor.nome == discip2.professor.nome;
+    }
+	
+	public static boolean validarIndividuo(Disciplina[]) {
+		
+		boolean paresHorariosValidos = true, aulaMesmoHorarioOutraSala = false;
+		
+		// verifica se o semestre da disciplina pode ter aula nesse horario
+		for (ArrayList<Integer> par : Utils.paresHorariosNaoPermitidos) {
+			if (disciplina[par[0]] != null && disciplina[par[1]] != null)
+				if (disciplina[par[0]].professor.nome == disciplina[par[1]].professor.nome)
+					return false;
+		}
+
+		// valida se o professor não está em duas aulas no mesmo horário
+		for (int i = 0; i < 30; i++) {
+			for (int j = i + 30; j < 150; j+=30) {
+				if (disciplina[i] != null && disciplina[k] != null)
+					if (disciplina[i].professor.nome == disciplina[k].professor.nome)
+						return false;
+			}
+		}
+		
+		return true;     
+
+	}
+	
+	
+	
 }
