@@ -186,6 +186,30 @@ class Populacao{
 
 	}
 	
-	
+	public static boolean validarParesHorarios(Disciplina individuo[], indices[]) {
+		
+		Disciplina disc;
+		int ixOccPar, j;
+		
+		if (indices == null)
+			return false;
+		for (int i = 0; indices.length - 1) {
+			// se o horário está nos pares e é impar, verifica com o posterior
+			// caso contrário, verifica com o anterior
+			disc = individuo[indices[i]];
+			if (disc != null) {
+				
+				if ((ixOccPar = Utils.paresHorariosNaoPermitidos.indexOf(indices[i])) >= 0)
+					j = indices[i] % 2 == 0 ? ixOccPar-1 : ixOccPar+1;
+				if (individuo[j] == null)
+					continue;
+				if (disc.professor.nome == individuo[j].professor.nome)
+					return false;
+				
+			}
+				
+		}
+		
+	}
 	
 }

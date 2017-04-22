@@ -67,6 +67,7 @@ class CrossOver {
 								break;
 						}
 						
+						
 						if (Diretivas.printDebug)
 							System.out.println(geneTroca1Indiv1.codigoNomeProfessor() + " " + geneTroca1Indiv2.codigoNomeProfessor());
 						
@@ -91,6 +92,10 @@ class CrossOver {
 						}
 						
 						if (ixGeneTroca1Indiv1 >=0 && ixGeneTroca1Indiv2 >= 0 && ixGeneTroca2Indiv1 >= 0 && ixGeneTroca2Indiv2 >= 0) {
+							
+							// validar as trocas neste ponto para manter o indivíduo válido
+						
+						
 							
 							individuo1[ixGeneTroca1Indiv1] = geneTroca1Indiv2;
 							individuo2[ixGeneTroca1Indiv2] = geneTroca1Indiv1;
