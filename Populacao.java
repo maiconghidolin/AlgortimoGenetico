@@ -158,26 +158,34 @@ class Populacao{
     
     public static boolean compararIgualdadeDisciplinas(Disciplina discip1, Disciplina discip2) {
         if ((discip1 == null || discip2 == null) && (discip1 != null || discip2 != null))
-            return true;
+            return false;
         return discip1.codigo == discip2.codigo && discip1.professor.nome == discip2.professor.nome;
     }
 	
-	public static boolean validarIndividuo(Disciplina[]) {
+	public static boolean validarIndividuo(Disciplina[] individuo) {
 		
-		boolean paresHorariosValidos = true, aulaMesmoHorarioOutraSala = false;
+		Disciplina disciplina1, disciplina2;
+		Utils utils;
 		
+		utils = new Utils();
 		// verifica se o semestre da disciplina pode ter aula nesse horario
-		for (ArrayList<Integer> par : Utils.paresHorariosNaoPermitidos) {
-			if (disciplina[par[0]] != null && disciplina[par[1]] != null)
-				if (disciplina[par[0]].professor.nome == disciplina[par[1]].professor.nome)
+		for (int i = 0; i < utils.paresHorariosNaoPermitidos.length - 1; i++) {
+			
+			disciplina1 = individuo[i];
+			disciplina2 = individuo[i+1];
+			
+			if (disciplina1 != null && disciplina2 != null)
+				if (disciplina1.professor.nome == disciplina2.professor.nome)
 					return false;
 		}
 
 		// valida se o professor não está em duas aulas no mesmo horário
 		for (int i = 0; i < 30; i++) {
+			disciplina1 = individuo[i];
 			for (int j = i + 30; j < 150; j+=30) {
-				if (disciplina[i] != null && disciplina[k] != null)
-					if (disciplina[i].professor.nome == disciplina[k].professor.nome)
+				disciplina2 = individuo[j];
+				if (disciplina1 != null && disciplina2 != null)
+					if (disciplina1.professor.nome == disciplina2.professor.nome)
 						return false;
 			}
 		}
@@ -186,29 +194,67 @@ class Populacao{
 
 	}
 	
-	public static boolean validarParesHorarios(Disciplina individuo[], indices[]) {
+	public static boolean validarParesHorarios(Disciplina individuo[], int indices[]) {
 		
-		Disciplina disc;
-		int ixOccPar, j;
+		Disciplina disciplina;
+		int ixHorario, ixHorarioParNaoPermitido;
+		Utils utils;
 		
 		if (indices == null)
 			return false;
-		for (int i = 0; indices.length - 1) {
+		
+		utils = new Utils();
+		
+		for (int i = 0; i < indices.length - 1; i++) {
+			
+			int j;
 			// se o horário está nos pares e é impar, verifica com o posterior
 			// caso contrário, verifica com o anterior
-			disc = individuo[indices[i]];
-			if (disc != null) {
+			ixHorario = indices[i];
+			disciplina = individuo[ixHorario];
+			
+			if (disciplina != null) {
 				
-				if ((ixOccPar = Utils.paresHorariosNaoPermitidos.indexOf(indices[i])) >= 0)
-					j = indices[i] % 2 == 0 ? ixOccPar-1 : ixOccPar+1;
-				if (individuo[j] == null)
-					continue;
-				if (disc.professor.nome == individuo[j].professor.nome)
-					return false;
+				ixHorarioParNaoPermitido = utils.indexOfHorarioParNaoPermitido(ixHorario);
 				
+				if (ixHorarioParNaoPermitido >= 0) {
+					j = ixHorario % 2 == 0 ? ixHorarioParNaoPermitido-1 : ixHorarioParNaoPermitido+1;
+					if (individuo[j] == null)
+						continue;
+					if (disciplina.professor.nome == individuo[j].professor.nome)
+						return false;
+				}
 			}
-				
+
 		}
+		
+		return true;
+		
+	}
+	
+	public static boolean validarAulasProfessor(Disciplina individuo[], int indices[]) {
+		
+		Disciplina disciplina;
+		int ixHorario;
+		
+		if (indices == null)
+			return false;
+
+		for (int i = 0; i < indices.length-1; i++) {
+			
+			ixHorario = indices[i];
+			disciplina = individuo[ixHorario];
+			
+			for (int j = ixHorario  % 30; j < 150; j+=30) {
+			
+				if (j != ixHorario && disciplina != null && individuo[j] != null)
+					if (disciplina.professor.nome == individuo[j].professor.nome)
+						return false;
+
+			}
+					
+		}
+		return true;
 		
 	}
 	
