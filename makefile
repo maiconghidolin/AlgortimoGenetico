@@ -10,8 +10,12 @@ CLASSES = \
 	Populacao.java \
 	Semestre.java \
 	Professor.java \
-	Evolution.java \
+	Individuo.java \
+	Fitness.java \
+	CrossOver.java \
 	Mutacao.java \
+	Diretivas.java \
+	Utils.java \
 	Main.java
 
 default: classes
