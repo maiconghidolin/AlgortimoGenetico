@@ -9,7 +9,7 @@ class Mutacao {
     // mutação por inversão
     // dois genes são trocados de posição dentro do individuo
     // trocas são feitas dentro dos horarios da sala e semestre 
-    public Mutacao(List<Disciplina[]> populacao){
+    public void Mutar(List<Disciplina[]> populacao){
         // rand p escolher o primeiro gene a ser trocado
         Random randGeneA = new Random();
         // rand p escolher o segundo gene a ser trocado
@@ -18,11 +18,13 @@ class Mutacao {
         Random randProbabilidade = new Random();
         int i = 0;
         for(Disciplina[] individuo: populacao){
-            System.out.print("Mutacao do individuo " + i + "   ");
+            if (Diretivas.printDebug)
+                System.out.print("Mutacao do individuo " + i + "   ");
             i++;
             // verifica a probabilidade de mutação para cada individuo
             int probabilidadeGerada = randProbabilidade.nextInt(100);
-            System.out.print("Probabilidade " + probabilidadeGerada + "   ");
+            if (Diretivas.printDebug)
+                System.out.print("Probabilidade " + probabilidadeGerada + "   ");
             if(probabilidadeGerada < probabilidadeMutacao){
                 // muta esse indivíduo
                 // busca primeiro gene para mutar
@@ -65,14 +67,17 @@ class Mutacao {
                 // valida se a troca é valida
                 if(ValidaTroca(individuo, geneA, indexGeneB) && ValidaTroca(individuo, geneB, indexGeneA)){
                     // faz a troca
-                    System.out.print("Fez a troca do gene " + indexGeneA + " pelo " + indexGeneB);
+                    if (Diretivas.printDebug)
+                        System.out.print("Fez a troca do gene " + indexGeneA + " pelo " + indexGeneB);
                     individuo[indexGeneA] = geneB;
                     individuo[indexGeneB] = geneA;
                 }else{
-                    System.out.print("Mutacao invalida");
+                    if (Diretivas.printDebug)
+                        System.out.print("Mutacao invalida");
                 }
             }
-            System.out.println("");
+            if (Diretivas.printDebug)
+                System.out.println("");
         }
     }
 

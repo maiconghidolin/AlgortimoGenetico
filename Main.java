@@ -49,6 +49,7 @@ class Main {
 				// crossover
 				populacaoDescendente = new ArrayList<Disciplina[]>(populacaoAtual);
 			   
+<<<<<<< HEAD
 			   	crossOver.efetuarCruzamento(populacaoDescendente, lerArquivo.semestres);
 			   	populacaoAtual.addAll(populacaoDescendente);
 			   
@@ -58,6 +59,14 @@ class Main {
                			//Fitness
 			   	individuosPopulacao = new ArrayList<Individuo>();
 			   	for (int j = 0; j < populacaoAtual.size(); j++) {
+=======
+               //Mutação
+               mutacao.Mutar(populacaoAtual);
+
+               //Fitness
+			   individuosPopulacao = new ArrayList<Individuo>();
+			   for (int j = 0; j < populacaoAtual.size(); j++) {
+>>>>>>> origin/master
 					if (Diretivas.printDebug)
 						System.out.print("Calculando fitness do individuo " + j + "...");
 					
@@ -87,6 +96,7 @@ class Main {
 				
             		}
 			
+<<<<<<< HEAD
             		//if (Diretivas.printDebug)
 				//populacao.imprimeIndividuos();
 			
@@ -129,6 +139,36 @@ class Main {
 				}
 								
 				
+=======
+//            if (Diretivas.printDebug)
+//				populacao.imprimeIndividuos();
+
+			for(int i = 1; i <= 5; i++){
+				int k;
+                if(i == 1) {
+                    k = 0;
+					System.out.println("\nSala 101");
+                } else if(i == 2) {
+                    k = 30;
+					System.out.println("\nSala 102");
+                } else if(i == 3) {
+                    k = 60;
+					System.out.println("\nSala 103");
+                } else if(i == 4) {
+                    k = 90;
+					System.out.println("\nSala 104");
+                } else{
+                    k = 120;
+					System.out.println("\nSala 105");
+                }
+				for(int j = k; j < k + 30; j++){
+					if(populacaoAtual.get(0)[j] != null){
+						System.out.println("Horario " + (j - k) + ": " + populacaoAtual.get(0)[j].codigo + " - " + populacaoAtual.get(0)[j].professor.nome);
+					}else{
+						System.out.println("Horario " + (j - k) + ": Nada");
+					}
+				}
+>>>>>>> origin/master
 			}
         }
 		catch (Exception ex){
