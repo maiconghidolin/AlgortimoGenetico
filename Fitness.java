@@ -43,23 +43,31 @@ class Fitness {
 			}
 		}
 		
-		stepK = 1;
-		for (i = 0, j = i + 20; j < 150; i++, j++) {
-			if (individuo[i] != null) {
-				for (k = 0;  k < 2 && k > -2; k += stepK) {
-					if (individuo[j+k] == null)
-						continue;
-					if (individuo[i].professor.nome == individuo[j+k].professor.nome){
-						fitness -= penalidadeManhaNoite;
-						if(log){
-							System.out.println("Preferencia quebrada: aulas ministradas no periodo matinal e noturno no mesmo dia (" + i + ", " + (j + k) + ") para o professor " + individuo[i].professor.nome + "");
+		for (k = 0; k < 5; k++) {
+			int offSetSala = (k * 30);
+			for (i = offSetSala; i < offSetSala + 10; i++) {
+				if (individuo[i] != null) {
+					int horarioOutrasSalas = i % 30;
+					while(horarioOutrasSalas < 149){
+
+						int offSetSalaNoturno = horarioOutrasSalas + 20 - (i % 2);
+						for (j = offSetSalaNoturno; j < offSetSalaNoturno + 2; j++) {
+							if (individuo[j] == null)
+							continue;
+							if (individuo[i].professor.nome == individuo[j].professor.nome){
+								fitness -= penalidadeManhaNoite;
+								if(log){
+									System.out.println("Preferencia quebrada: aulas ministradas no periodo matinal e noturno no mesmo dia (" + i + ", " + (j) + ") para o professor " + individuo[i].professor.nome + "");
+								}
+							}
 						}
+
+						horarioOutrasSalas += 30;
 					}
 				}
 			}
-			stepK = -stepK;
 		}
-		
+
 		//System.out.println(fitness);
 		return fitness;
 		
