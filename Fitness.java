@@ -6,7 +6,7 @@ class Fitness {
 
 	// a fitness é a avaliação da satisfação das preferências dos professores
 	
-	public double fitness(Disciplina individuo[]) {
+	public double fitness(Disciplina individuo[], boolean log) {
 
 		double fitness = 1.0;
 		// double penalidadeHorariosConsecutivos = 0.2 / (individuo.length / 2); // 
@@ -22,8 +22,12 @@ class Fitness {
 		for (i = 0; i < individuo.length-1; i+=2) {
 			if (individuo[i] == null || individuo[i+1] == null)
 				continue;
-			if (individuo[i].professor.nome == individuo[i+1].professor.nome)
+			if (individuo[i].professor.nome == individuo[i+1].professor.nome){
 				fitness -= penalidadeHorariosConsecutivos;
+				if(log){
+					System.out.println("Preferencia quebrada: periodos consecutivos (" + (i % 30) + ", " + ((i + 1) % 30) + ") no mesmo turno para o professor " + individuo[i].professor.nome + "");
+				}
+			}
 		}
 		
 		for (i = horarioAula = 0; i < individuo.length; i++, horarioAula++) {
@@ -31,8 +35,12 @@ class Fitness {
 				continue;
 			if (horarioAula == 30)
 				horarioAula = 0;
-			if (individuo[i].professor.horariosIndisponiveis.indexOf(horarioAula) >= 0)
+			if (individuo[i].professor.horariosIndisponiveis.indexOf(horarioAula) >= 0){
 				fitness -= penalidadeHorarioIndesejado;
+				if(log){
+					System.out.println("Preferencia quebrada: horario " + horarioAula + " indesejado para o professor " + individuo[i].professor.nome + "");
+				}
+			}
 		}
 		
 		stepK = 1;
@@ -41,8 +49,12 @@ class Fitness {
 				for (k = 0;  k < 2 && k > -2; k += stepK) {
 					if (individuo[j+k] == null)
 						continue;
-					if (individuo[i].professor.nome == individuo[j+k].professor.nome)
+					if (individuo[i].professor.nome == individuo[j+k].professor.nome){
 						fitness -= penalidadeManhaNoite;
+						if(log){
+							System.out.println("Preferencia quebrada: aulas ministradas no periodo matinal e noturno no mesmo dia (" + i + ", " + (j + k) + ") para o professor " + individuo[i].professor.nome + "");
+						}
+					}
 				}
 			}
 			stepK = -stepK;

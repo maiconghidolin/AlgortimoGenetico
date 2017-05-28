@@ -63,7 +63,7 @@ class Main {
 					
 					indiv = new Individuo();
 					indiv.disciplinas = populacaoAtual.get(i);
-					indiv.fitness = fitness.fitness(indiv.disciplinas);
+					indiv.fitness = fitness.fitness(indiv.disciplinas, false);
 					if (Diretivas.printDebug)
 						System.out.println(" valor: " + indiv.fitness);
 					
@@ -90,7 +90,9 @@ class Main {
             		//if (Diretivas.printDebug)
 				//populacao.imprimeIndividuos();
 			
-	
+	 double valfitness = fitness.fitness(populacaoAtual.get(0), true);
+				System.out.println("Fitness " + valfitness);
+				
 			for(int i = 1; i <= 5; i++){
 				int k;
                 		if(i == 1) {
@@ -114,8 +116,8 @@ class Main {
                     			k = 120;
 					System.out.println("\nSala 105");
 					
-                		}		
-								
+                		}
+
 				for(int j = k; j < k + 30; j++){
 					if(populacaoAtual.get(0)[j] != null){						
 						
