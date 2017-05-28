@@ -16,46 +16,29 @@ class CrossOver {
 		Random rand = new Random();
 		Utils utils = new Utils();
 		
-		int ixGeneTroca1Indiv1, ixGeneTroca1Indiv2, ixGeneTroca2Indiv1, ixGeneTroca2Indiv2, tentativas, offSetIndividuo, ixGeneOffSet, trocas, ixHorTroca1Indiv1, ixHorTroca2Indiv1, ixHorTroca1Indiv2, ixHorTroca2Indiv2, trocasDesejadas, ixIndivCruzar, ixIndivSelecionado1, ixIndivSelecionado2;
+		int ixGeneTroca1Indiv1, ixGeneTroca1Indiv2, ixGeneTroca2Indiv1, ixGeneTroca2Indiv2, tentativas, offSetIndividuo, ixGeneOffSet, trocas, ixHorTroca1Indiv1, ixHorTroca2Indiv1, ixHorTroca1Indiv2, ixHorTroca2Indiv2, trocasDesejadas;
 		int ixTrocas[];
 		Disciplina geneTroca1Indiv1, geneTroca1Indiv2, geneTroca2Indiv1, geneTroca2Indiv2, individuo1[], individuo2[], descendente1[], descendente2[], genesTroca[];
-		ArrayList<Integer> horariosTrocaIndiv1, horariosTrocaIndiv2, horariosNulos, individuosParadosNoTempo, individuosParaTroca;
+		ArrayList<Integer> horariosTrocaIndiv1, horariosTrocaIndiv2, horariosNulos, individuosParadosNoTempo;
 		
 		try {
-		
-			individuosParaTroca = new ArrayList<Integer>();
-			for (int z = 0; z < populacao.size(); z++) {
-				individuosParaTroca.add(z);
-			}
 		
 			ixTrocas = new int[4];
 			genesTroca = new Disciplina[4];
 			individuosParadosNoTempo = new ArrayList<Integer>();
 		
-			while (individuosParaTroca.size() > 0) {
-									
-				ixIndivCruzar = rand.nextInt(individuosParaTroca.size()-1);
-					
-				ixIndivSelecionado1 = individuosParaTroca.get(ixIndivCruzar);
-				individuosParaTroca.remove(ixIndivCruzar);
-				individuo1 = populacao.get(ixIndivSelecionado1);
-							
-				if (individuosParaTroca.size() == 1)
-					ixIndivCruzar = 0;
-				else
-					ixIndivCruzar = rand.nextInt(individuosParaTroca.size()-1);
-
-				ixIndivSelecionado2 = individuosParaTroca.get(ixIndivCruzar);
-				individuosParaTroca.remove(ixIndivCruzar);
-				individuo2 = populacao.get(ixIndivSelecionado2);
+			for (int i = 0; i < populacao.size()-1; i+=2) {
 				
 				if (Diretivas.printDebug)
-					System.out.println("Cruzamento dos indivíduos " + ixIndivSelecionado1 + " e " + ixIndivSelecionado2 + " de " + populacao.size());
+					System.out.println("Cruzamento dos indivíduos " + i + " e " + (i+1) + " de " + populacao.size());
 				
+				individuo1 = populacao.get(i);
+				individuo2 = populacao.get(i+1);
 				trocas = 0;
 				
 				for (Semestre semestre : semestres) {
 				
+					
 					offSetIndividuo = (semestre.sala - 101) * 30; // deslocamento dentro do cojunto de genes, de acordo com a sala do semestre
 					horariosTrocaIndiv1 = new ArrayList<Integer>(semestre.horariosDisponiveis);
 					horariosTrocaIndiv2 = new ArrayList<Integer>(semestre.horariosDisponiveis);
@@ -97,8 +80,8 @@ class CrossOver {
 				}
 				// se não houve troca de genes os indivíduos não são válidos, pois serão iguais aos pais
 				if (trocas == 0) {
-					individuosParadosNoTempo.add(ixIndivSelecionado1);
-					individuosParadosNoTempo.add(ixIndivSelecionado2);
+					individuosParadosNoTempo.add(i);
+					individuosParadosNoTempo.add(i+1);
 				}
 					
 			}

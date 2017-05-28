@@ -90,7 +90,7 @@ class Main {
             		//if (Diretivas.printDebug)
 				//populacao.imprimeIndividuos();
 			
-	 double valfitness = fitness.fitness(populacaoAtual.get(0), true);
+			double valfitness = fitness.fitness(populacaoAtual.get(0), true);
 				System.out.println("Fitness " + valfitness);
 				
 			for(int i = 1; i <= 5; i++){
@@ -134,7 +134,7 @@ class Main {
 			}
         }
 		catch (Exception ex){
-            System.out.println(ex.getCause().getMessage());
+            ex.printStackTrace(System.out);
         }
     }
 }
