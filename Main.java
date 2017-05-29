@@ -51,9 +51,9 @@ class Main {
 			   
 			   	crossOver.efetuarCruzamento(populacaoDescendente, lerArquivo.semestres);
 			   	populacaoAtual.addAll(populacaoDescendente);
-			   
+				
                			//Mutação
-               			mutacao.Mutar(populacaoAtual);
+               	mutacao.Mutar(populacaoAtual);
 
                			//Fitness
 			   	individuosPopulacao = new ArrayList<Individuo>();
@@ -62,7 +62,7 @@ class Main {
 						System.out.print("Calculando fitness do individuo " + j + "...");
 					
 					indiv = new Individuo();
-					indiv.disciplinas = populacaoAtual.get(i);
+					indiv.disciplinas = populacaoAtual.get(j);
 					indiv.fitness = fitness.fitness(indiv.disciplinas, false);
 					if (Diretivas.printDebug)
 						System.out.println(" valor: " + indiv.fitness);
@@ -76,22 +76,27 @@ class Main {
 					@Override
 					public int compare(Individuo i1, Individuo i2)
 					{
-						return i1.fitness >= i2.fitness ? 1 : -1;
+						return Double.compare(i2.fitness, i1.fitness);
 					}
 				});
-				
+			
+				for (int k = 0; k < individuosPopulacao.size(); k++)
+					System.out.println(k + " " + individuosPopulacao.get(k).fitness);
+			
+				System.out.print("Fitness " + individuosPopulacao.get(0).fitness);
+				System.out.println(" " + individuosPopulacao.get(individuosPopulacao.size()-1).fitness);
 			    	//Corte
 				populacaoAtual.clear();
 				for (int k = 0; k < 750; k++)
 					populacaoAtual.add(individuosPopulacao.get(k).disciplinas);
-				
-            		}
+			
+				System.in.read();
+			
+            }
 			
             		//if (Diretivas.printDebug)
 				//populacao.imprimeIndividuos();
 			
-			double valfitness = fitness.fitness(populacaoAtual.get(0), true);
-				System.out.println("Fitness " + valfitness);
 				
 			for(int i = 1; i <= 5; i++){
 				int k;
