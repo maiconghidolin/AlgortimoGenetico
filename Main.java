@@ -3,14 +3,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Collections;
+import java.util.Scanner;
 import java.net.*;
 import java.io.*;
 
 class Main {
 
     private static final int quantidadeIteracoes = 20;
-
+	
     public static void main(String args[]){
+	
+		Scanner key = new Scanner(System.in);
+		int cont;
+		Disciplina disciplinaTemp[];
 		
 		double valorFitness[];
 		
@@ -43,11 +48,25 @@ class Main {
 			CrossOver crossOver = new CrossOver();
 			Mutacao mutacao = new Mutacao();
 
-			populacaoAtual = new ArrayList<Disciplina[]>(populacao.populacaoInicial);
+			populacaoAtual = new ArrayList<Disciplina[]>();
+			
+			for (int i = 0; i < populacao.populacaoInicial.size(); i++) {
+				disciplinaTemp = new Disciplina[150];
+				disciplinaTemp = populacao.populacaoInicial.get(i).clone();
+				populacaoAtual.add(disciplinaTemp);
+			}
 			
 			for(int i = 0; i < quantidadeIteracoes; i++){
+				
 				// crossover
-				populacaoDescendente = new ArrayList<Disciplina[]>(populacaoAtual);
+				
+				populacaoDescendente = new ArrayList<Disciplina[]>();
+			   
+				for (int k = 0; k < populacaoAtual.size(); k++) {
+					disciplinaTemp = new Disciplina[150];
+					disciplinaTemp = populacaoAtual.get(k).clone();
+					populacaoDescendente.add(disciplinaTemp);
+				}
 			   
 			   	crossOver.efetuarCruzamento(populacaoDescendente, lerArquivo.semestres);
 			   	populacaoAtual.addAll(populacaoDescendente);
@@ -80,17 +99,21 @@ class Main {
 					}
 				});
 			
-				for (int k = 0; k < individuosPopulacao.size(); k++)
-					System.out.println(k + " " + individuosPopulacao.get(k).fitness);
+				System.out.println(String.format("Melhor e pior representantes da geracao %s: %s, %s", i, individuosPopulacao.get(0).fitness, individuosPopulacao.get(749).fitness));
 			
-				System.out.print("Fitness " + individuosPopulacao.get(0).fitness);
-				System.out.println(" " + individuosPopulacao.get(individuosPopulacao.size()-1).fitness);
-			    	//Corte
+				System.out.println("Melhores representantes - Geracao " + i + ":");
+				for (int k = 0; k < 20; k++)
+					System.out.println(k + " - " + individuosPopulacao.get(k).fitness);
+
+				//Corte
 				populacaoAtual.clear();
 				for (int k = 0; k < 750; k++)
 					populacaoAtual.add(individuosPopulacao.get(k).disciplinas);
 			
-				System.in.read();
+				// cont = 0;
+				// while (cont == 0) {
+					// cont = key.nextInt();
+				// }
 			
             }
 			
