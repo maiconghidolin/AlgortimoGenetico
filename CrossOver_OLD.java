@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-class CrossOver {
+class CrossOver_OLD {
 
 	private int ixTr1Ind1 = 0, ixTr1Ind2 = 1, ixTr2Ind1 = 2, ixTr2Ind2 = 3;
 		
